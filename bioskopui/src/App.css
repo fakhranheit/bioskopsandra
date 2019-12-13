@@ -1,0 +1,155 @@
+.App {
+  text-align: center;
+  background-color: slategrey;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 1s linear;
+  }
+}
+
+.App-header {
+  background-color:#008080;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.warnaHeader{
+  background-color:black;
+}
+
+.text{
+  color: white;
+}
+
+.menu{
+  color: black;
+}
+
+.gambar:hover{
+  transform: scale(1.1);
+  border-radius: 10px;
+}
+.kartu{
+  border-radius: 10px;
+  overflow: hidden;
+}
+.gambar{
+  transition: 700ms;
+}
+.gambaar1{
+  border-radius: 10px;
+  overflow: hidden;
+}
+.readMore{
+  color: red;
+}
+.readMore:hover{
+  cursor: pointer;
+}
+
+.salah:hover{
+  cursor: pointer;
+}
+
+.trailer{
+  background-color: transparent;
+  height: 500px;
+  padding: 0;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.btn-order{
+  width: 43px;
+  height: 40px;
+  background-color:whitesmoke;
+  color: #5b0008;
+  border: 1px solid #5b0008;
+  transition: 200ms;
+}
+
+.btn-order:focus{
+  outline-color: #5b0008;
+}
+
+.btn-order:hover{
+  font-weight: bolder;
+}
+
+.btn-disble{
+  width: 43px;
+  height: 40px;
+  background-color:whitesmoke;
+  color: #5b0008;
+  border: 1px solid #5b0008;
+}
+.btn-pilih{
+  color: whitesmoke;
+  background-color: #5b0008d7;
+  border: 1px solid whitesmoke;
+  width: 43px;
+  height: 40px;
+}
+
+.layar{
+  background-color: black;
+  color: white;
+}
+
+.user{
+  color: white;
+}
+
+.logout{
+  margin-left: 135vh;
+}
+
+.warnalink{
+  color: grey;
+}
+
+.warnalink:hover{
+color: white;
+}
+
+.borderregis{
+  border: 1px solid black;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  margin-top: 20vh;
+}
+
