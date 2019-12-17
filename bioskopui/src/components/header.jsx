@@ -39,7 +39,6 @@ const Header = props => {
             </NavItem>
             {props.AuthLog === "" ? (
               <NavItem>
-                <Link to={"/login"} className="menu" />
               </NavItem>
             ) : null}
             {props.AuthLog === "" ? null : <NavItem className="mt-2 user d-flex">Selamat Datang {props.AuthLog}</NavItem>}
@@ -48,13 +47,19 @@ const Header = props => {
             {props.AuthLog === "" ? null : (
               <NavItem className="logout d-flex">
                 <NavLink>
-                  <Link to={'/cart'}>
-                    <FaCartPlus style={{ color: "white", fontSize: "20px" }} />
-                  </Link>
+                  {props.role === "user" ? (
+                    <Link to={"/cart"}>
+                      <div style={{ color: "white" }}>
+                        <FaCartPlus style={{ color: "white", fontSize: "20px" }} />
+                        {props.notif}
+                      </div>
+                    </Link>
+                  ) : null}
                 </NavLink>
                 <NavLink href="/" onClick={() => logOutUser()} className="btn btn-dark">
                   Logout
                 </NavLink>
+                <NavLink className="warnalink" href="/gantipassword">Ganti Password</NavLink>
               </NavItem>
             )}
           </Nav>
@@ -68,7 +73,8 @@ const MapstateToprops = state => {
   return {
     AuthLog: state.Auth.username,
     role: state.Auth.role,
-    authLogin: state.Auth.login
+    authLogin: state.Auth.login,
+    notif: state.Auth.notif
   };
 };
 

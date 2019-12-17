@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Axios from "axios";
 import { APIURL } from "../support/ApiUrl";
 import Swal from "sweetalert2";
-import color from "@material-ui/core/colors/amber";
 
 class RegisterUser extends Component {
   state = {

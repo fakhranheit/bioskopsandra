@@ -9,7 +9,7 @@ class Home extends Component {
     dataMovies: [],
     readMore: -1
   };
-
+  
   renderMovies = () => {
     return this.state.dataMovies.map((val, index) => {
       const info = this.state.readMore;
@@ -46,7 +46,7 @@ class Home extends Component {
           <div key={index} className="col-md-4 py-5 pr-3 pl-1 ">
             <div className="card kartu" style={{ width: "100%" }}>
               <div className="gambaar1">
-                <Link to={'./moviedetail/'+val.id} >
+                <Link to={"./moviedetail/" + val.id}>
                   <img src={val.image} className="card-img-top kartu gambar" alt="..." />
                 </Link>
               </div>
@@ -83,9 +83,14 @@ class Home extends Component {
   render() {
     console.log(this.state.readMore);
     return (
-      <div className=" mx-5">
-        <div className="row py-5 " style={{ paddingLeft: "10%", paddingRight: "10%" }}>
-          {this.renderMovies()}
+      <div>
+        <div>
+          <img src="" alt=""/>
+        </div>
+        <div className=" mx-5">
+          <div className="row py-5 " style={{ paddingLeft: "10%", paddingRight: "10%" }}>
+            {this.renderMovies()}
+          </div>
         </div>
       </div>
     );

@@ -7,6 +7,7 @@ import Fade from "react-reveal/Fade";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { Spinner } from "reactstrap";
+import { connect } from "react-redux";
 
 const Myswal = withReactContent(Swal);
 
@@ -16,14 +17,15 @@ class ManageAdmin extends Component {
     modaladd: false,
     modaledit: false,
     indexedit: 0,
-    iddelete:-1,
-    jadwal: [12, 14, 16, 18, 20, 22]
+    iddelete: -1,
+    jadwal: [12, 14, 16, 18, 20, 22],
+    datastudio: []
   };
 
   onUpdateDataClick = () => {
     var jadwaltemplate = this.state.jadwal;
     var jadwal = [];
-    var id=this.state.dataFilm[this.state.indexedit].id
+    var id = this.state.dataFilm[this.state.indexedit].id;
     // console.log(this.refs.jadwal0);
     for (var i = 0; i < jadwaltemplate.length; i++) {
       if (this.refs[`editjadwal ${i}`].checked) {
@@ -42,7 +44,7 @@ class ManageAdmin extends Component {
     var studioId = iniref.studio.value;
 
     var data = {
-      title: title, 
+      title: title,
       image: image,
       synopsys: sinopsis,
       sutradara: sutradara,
@@ -57,16 +59,15 @@ class ManageAdmin extends Component {
     if (title === "" || image === "" || sinopsis === "" || genre === "" || jadwal === "" || produksi === "") {
       Myswal.fire("Failed", "Data harus diisi semua", "error");
     } else {
-      
       Axios.patch(`${APIURL}movies/${id}`, data)
-      .then(res => {
-        Axios.get(`${APIURL}movies`).then(res => {
-          this.setState({ dataFilm: res.data });
+        .then(res => {
+          Axios.get(`${APIURL}movies`).then(res => {
+            this.setState({ dataFilm: res.data });
+          });
+        })
+        .catch(err => {
+          console.log(err);
         });
-      })
-      .catch(err => {
-        console.log(err);
-      });
       this.setState({ modaladd: false });
       Myswal.fire("Berhasil", "Data berhasil dimasukkan", "success");
     }
@@ -126,13 +127,18 @@ class ManageAdmin extends Component {
   componentDidMount() {
     Axios.get(`${APIURL}movies`)
       .then(res => {
-        this.setState({ dataFilm: res.data });
+        // console.log(res.data)
+        Axios.get(`${APIURL}studios`).then(res1 => {
+          this.setState({
+            dataFilm: res.data,
+            datastudio: res1.data
+          });
+        });
       })
       .catch(err => {
         console.log(err);
       });
   }
-
   deleteMovie = index => {
     Myswal.fire({
       title: `Hapus  ${this.state.dataFilm[index].title}`,
@@ -144,19 +150,19 @@ class ManageAdmin extends Component {
       reverseButtons: true
     }).then(result => {
       if (result.value) {
-        const datahapus=this.state.dataFilm
-        this.setState({iddelete:datahapus[index].id})
-        Axios.delete(`${APIURL}movies/${this.state.iddelete}`)
-        .then(()=>{
+        const datahapus = this.state.dataFilm;
+        this.setState({ iddelete: datahapus[index].id });
+        Axios.delete(`${APIURL}movies/${this.state.iddelete}`).then(() => {
           Axios.get(`${APIURL}movies`)
-          .then(res=>{
-            this.setState({dataFilm:res.data})
-          }).catch(err=>{
-            console.log(err)
-          })
-        })
-        console.log(this.state.iddelete)
-        datahapus.splice(index,1)
+            .then(res => {
+              this.setState({ dataFilm: res.data });
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        });
+        console.log(this.state.iddelete);
+        // datahapus.splice(index, 1);
         Myswal.fire("Deleted!", "Your file has been deleted.", "success");
       } else {
         Myswal.fire("Cancelled", "", "error");
@@ -191,9 +197,14 @@ class ManageAdmin extends Component {
               </span>
             </TableCell>
           )}
-          <TableCell align="center" style={{width:'60px'}}>{val.jadwal.map((val,index)=>{
-            return <button className="btn btn-primary my-1" style={{height:"2rem",lineHeight:"14px",cursor:"text"}}>{val}:00</button>
-          })}
+          <TableCell align="center" style={{ width: "60px" }}>
+            {val.jadwal.map((val, index) => {
+              return (
+                <button className="btn btn-dark my-1" style={{ height: "2rem", lineHeight: "14px", cursor: "text" }}>
+                  {val}:00
+                </button>
+              );
+            })}
           </TableCell>
           <TableCell>{val.sutradara}</TableCell>
           <TableCell>{val.genre}</TableCell>
@@ -201,14 +212,14 @@ class ManageAdmin extends Component {
           <TableCell>{val.produksi}</TableCell>
           <TableCell>
             <button
-              className="btn btn-primary mb-2"
+              className="btn btn-dark mb-2 mr-3 mt-2"
               onClick={() => {
                 this.setState({ modaledit: true, indexedit: index });
               }}
             >
               Edit
             </button>
-            <button onClick={() => this.deleteMovie(index)} className="btn btn-primary">
+            <button onClick={() => this.deleteMovie(index)} className="btn btn-dark">
               Delete
             </button>
           </TableCell>
@@ -270,6 +281,9 @@ class ManageAdmin extends Component {
   };
 
   render() {
+    if (this.props.role !== "admin") {
+      return <div>Error</div>;
+    }
     const { dataFilm, indexedit } = this.state;
     const { length } = dataFilm;
     if (length === 0) {
@@ -292,9 +306,9 @@ class ManageAdmin extends Component {
             <div className="d-flex">{this.renderAddCheckbox()}</div>
             <input type="text" ref="trailer" placeholder="trailer" className="form-control mb-3" />
             <select ref="studioId">
-              <option value="1">Studio 1</option>
-              <option value="2">Studio 2</option>
-              <option value="3">Studio 3</option>
+              {this.state.datastudio.map(val => {
+                return <option value={val.id}>{val.nama}</option>;
+              })}
             </select>
             <input type="text" ref="sutradara" placeholder="sutradara" className="form-control mb-3" />
             <input type="number" ref="durasi" placeholder="durasi" className="form-control mb-3" />
@@ -322,9 +336,9 @@ class ManageAdmin extends Component {
             <input ref="edittrailer" defaultValue={dataFilm[indexedit].trailer} placeholder="trailer" className="form-control mb-3 mt-3" />
             Studio :
             <select ref="studio">
-              <option value="1">Studio 1</option>
-              <option value="2">Studio 2</option>
-              <option value="3">Studio 3</option>
+              {this.state.datastudio.map(val => {
+                return <option value={val.id}>{val.nama}</option>;
+              })}
             </select>
             <input type="text" defaultValue={dataFilm[indexedit].sutradara} ref="editsutradara" placeholder="sutradara" className="form-control mb-3 mt-3" />
             <input type="number" defaultValue={dataFilm[indexedit].durasi} ref="editdurasi" placeholder="durasi" className="form-control mb-3" />
@@ -363,7 +377,7 @@ class ManageAdmin extends Component {
         <center>
           <button
             style={{ alignContent: "start" }}
-            className="btn btn-success mt-5 mb-5"
+            className="btn btn-dark mt-5 mb-5"
             onClick={() => {
               this.setState({ modaladd: true });
             }}
@@ -376,4 +390,10 @@ class ManageAdmin extends Component {
   }
 }
 
-export default ManageAdmin;
+const MapstateToprops = state => {
+  return {
+    role: state.Auth.role
+  };
+};
+
+export default connect(MapstateToprops)(ManageAdmin);
