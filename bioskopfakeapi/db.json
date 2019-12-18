@@ -41,6 +41,12 @@
       "password": "123",
       "role": "user",
       "id": 7
+    },
+    {
+      "username": "coba",
+      "password": "222",
+      "role": "user",
+      "id": 8
     }
   ],
   "studios": [
@@ -187,36 +193,6 @@
       "seat": 18,
       "row": 0,
       "id": 10
-    },
-    {
-      "orderId": 11,
-      "seat": 17,
-      "row": 0,
-      "id": 12
-    },
-    {
-      "orderId": 12,
-      "seat": 19,
-      "row": 0,
-      "id": 13
-    },
-    {
-      "orderId": 13,
-      "seat": 10,
-      "row": 2,
-      "id": 14
-    },
-    {
-      "orderId": 13,
-      "seat": 11,
-      "row": 2,
-      "id": 15
-    },
-    {
-      "orderId": 13,
-      "seat": 12,
-      "row": 2,
-      "id": 16
     }
   ],
   "transaction": [
