@@ -27,7 +27,14 @@ const Header = props => {
                 Home
               </NavLink>
             </NavItem>
-            <NavItem>{props.role === "admin" ? <NavLink href={"/manageAdmin"}>manageAdmin</NavLink> : null}</NavItem>
+            <NavItem>
+              {props.role === "admin" ? (
+                <div className="d-flex mr-3 salah">
+                  <NavLink href={"/manageAdmin"}>manageAdmin</NavLink>
+                  <NavLink href={"/manageStudio"}>Manage Studio</NavLink>
+                </div>
+              ) : null}
+            </NavItem>
             <NavItem>
               {props.authLogin ? null : (
                 <NavLink>
@@ -37,10 +44,7 @@ const Header = props => {
                 </NavLink>
               )}
             </NavItem>
-            {props.AuthLog === "" ? (
-              <NavItem>
-              </NavItem>
-            ) : null}
+            {props.AuthLog === "" ? <NavItem></NavItem> : null}
             {props.AuthLog === "" ? null : <NavItem className="mt-2 user d-flex">Selamat Datang {props.AuthLog}</NavItem>}
           </Nav>
           <Nav>
@@ -59,7 +63,9 @@ const Header = props => {
                 <NavLink href="/" onClick={() => logOutUser()} className="btn btn-dark">
                   Logout
                 </NavLink>
-                <NavLink className="warnalink" href="/gantipassword">Ganti Password</NavLink>
+                <NavLink className="warnalink" href="/gantipassword">
+                  Ganti Password
+                </NavLink>
               </NavItem>
             )}
           </Nav>

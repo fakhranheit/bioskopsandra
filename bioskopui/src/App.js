@@ -16,6 +16,7 @@ import { connect } from "react-redux";
 import { LoginSuccessAction, NotifCart } from "./redux/actions";
 import Cart from "./pages/cart";
 import Gantipass from "./pages/gantipassword";
+import manageStudio from './pages/manageStudio'
 
 class App extends Component {
   state = {
@@ -75,6 +76,7 @@ class App extends Component {
           <Route path={"/RegisterUser"} exact component={RegisterUser} />
           <Route path={"/cart"} component={Cart} exact />
           <Route path="/gantipassword" component={Gantipass} exact/>
+          <Route path="/manageStudio" component={manageStudio} exact/>
         </Switch>
       </div>
     );

@@ -58,6 +58,16 @@
       "id": 3,
       "nama": "studio 3",
       "jumlahKursi": 200
+    },
+    {
+      "nama": "studio 5",
+      "jumlahKursi": "123",
+      "id": 4
+    },
+    {
+      "nama": "studio 4",
+      "jumlahKursi": "200",
+      "id": 5
     }
   ],
   "movies": [
@@ -173,22 +183,10 @@
   ],
   "ordersDetails": [
     {
-      "orderId": 8,
-      "seat": 5,
-      "row": 0,
-      "id": 9
-    },
-    {
       "orderId": 9,
       "seat": 18,
       "row": 0,
       "id": 10
-    },
-    {
-      "orderId": 10,
-      "seat": 19,
-      "row": 0,
-      "id": 11
     },
     {
       "orderId": 11,
