@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { Spinner } from "reactstrap";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 const Myswal = withReactContent(Swal);
 
@@ -282,7 +283,11 @@ class ManageAdmin extends Component {
 
   render() {
     if (this.props.role !== "admin") {
-      return <div>Error</div>;
+      return (
+        <div>
+          <Redirect to={"/error"} />
+        </div>
+      );
     }
     const { dataFilm, indexedit } = this.state;
     const { length } = dataFilm;

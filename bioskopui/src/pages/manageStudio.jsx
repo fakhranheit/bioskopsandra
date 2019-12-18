@@ -6,6 +6,7 @@ import Fade from "react-reveal/Fade";
 import Axios from "axios";
 import { APIURL } from "../support/ApiUrl";
 import Swal from "sweetalert2";
+import { Redirect } from "react-router-dom";
 
 class Managestudio extends Component {
   state = {
@@ -36,7 +37,7 @@ class Managestudio extends Component {
   };
 
   onClickSaveStudio = () => {
-    var editStudio = [];
+    // var editStudio = [];
     var nama = this.refs.nama.value;
     var jumlahKursi = this.refs.jumlahKursi.value;
     var newdata = this.state.datastudio;
@@ -88,7 +89,7 @@ class Managestudio extends Component {
     }
   };
 
-  onClickdeleteStudio = (index) => {
+  onClickdeleteStudio = index => {
     Swal.fire({
       title: "Yakin hapus" + this.state.datastudio[index].nama + "?",
       text: "",
@@ -132,7 +133,7 @@ class Managestudio extends Component {
             <button onClick={() => this.onClickEditStudio(index)} className="btn btn-dark mr-3">
               Edit
             </button>
-            <button onClick={()=>this.onClickdeleteStudio(index)} className="btn btn-outline-dark">
+            <button onClick={() => this.onClickdeleteStudio(index)} className="btn btn-outline-dark">
               Delete
             </button>
           </TableCell>
@@ -142,14 +143,18 @@ class Managestudio extends Component {
   };
 
   render() {
-    const  {datastudio,indexEdit}=this.state
+    const { datastudio, indexEdit } = this.state;
     if (this.state.loading) {
       return <div>Loading</div>;
     }
     // console.log(this.state.datastudio,'asdasdas')
     else {
       if (this.props.role !== "admin") {
-        return <div> error</div>;
+        return (
+          <div>
+            <Redirect to={"/error"} />
+          </div>
+        );
       } else {
         return (
           <div>
@@ -181,13 +186,13 @@ class Managestudio extends Component {
               </ModalFooter>
             </Modal>
 
-            <button className="btn btn-success" style={{ margin: "10px" }} onClick={() => this.setState({ modaladd: true })}>
+            <button className="btn btn-dark" style={{ margin: "10px" }} onClick={() => this.setState({ modaladd: true })}>
               {" "}
-              add Data
+              Tambah Studio
             </button>
             <Fade>
               {/* <button className='btn btn-success' onClick={()=>this.setState({modaladd:true})}> add Data</button> */}
-              <Table size="small">
+              <Table size="medium">
                 <TableHead>
                   <TableRow>
                     <TableCell>No.</TableCell>
@@ -208,8 +213,6 @@ class Managestudio extends Component {
 
 const MapstateToprops = state => {
   return {
-    AuthLog: state.Auth.login,
-    userId: state.Auth.id,
     role: state.Auth.role
   };
 };

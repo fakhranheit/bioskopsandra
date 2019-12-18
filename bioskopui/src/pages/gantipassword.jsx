@@ -29,7 +29,7 @@ class Gantipass extends Component {
         title: "Gagal",
         text: "Password tidak boleh kosong"
       });
-    } else if (passwordlama == passwordbaru) {
+    } else if (passwordlama === passwordbaru) {
       Swal.fire({
         icon: "error",
         title: "Gagal",
@@ -78,7 +78,7 @@ class Gantipass extends Component {
   };
 
   render() {
-    if (this.state.backtohome || this.props.loginuser==false) {
+    if (this.state.backtohome || this.props.loginuser===false) {
       return <Redirect to="/" />;
     }
 

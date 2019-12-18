@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { LogoutSuccessAction } from "./../redux/actions";
@@ -30,18 +30,21 @@ const Header = props => {
             <NavItem>
               {props.role === "admin" ? (
                 <div className="d-flex mr-3 salah">
-                  <NavLink href={"/manageAdmin"}>manageAdmin</NavLink>
+                  <NavLink href={"/manageAdmin"}>Manage Film</NavLink>
                   <NavLink href={"/manageStudio"}>Manage Studio</NavLink>
                 </div>
               ) : null}
             </NavItem>
             <NavItem>
               {props.authLogin ? null : (
-                <NavLink>
-                  <Link className="warnalink" to={"/login"}>
+                <div className="d-flex mt-2">
+                  <Link className="warnalink mr-2" to={"/login"}>
                     Login
                   </Link>
-                </NavLink>
+                  <Link className="warnalink" to={"/RegisterUser"}>
+                    Registrasi
+                  </Link>
+                </div>
               )}
             </NavItem>
             {props.AuthLog === "" ? <NavItem></NavItem> : null}
@@ -52,12 +55,19 @@ const Header = props => {
               <NavItem className="logout d-flex">
                 <NavLink>
                   {props.role === "user" ? (
-                    <Link to={"/cart"}>
-                      <div style={{ color: "white" }}>
-                        <FaCartPlus style={{ color: "white", fontSize: "20px" }} />
-                        {props.notif}
+                    <div className="d-flex mr-3">
+                      <Link to={"/cart"}>
+                        <div style={{ color: "white" }}>
+                          <FaCartPlus style={{ color: "white", fontSize: "20px" }} />
+                          {props.notif}
+                        </div>
+                      </Link>
+                      <div className="ml-3">
+                        <Link style={{ color: "white" }} to={"/history"}>
+                          History
+                        </Link>
                       </div>
-                    </Link>
+                    </div>
                   ) : null}
                 </NavLink>
                 <NavLink href="/" onClick={() => logOutUser()} className="btn btn-dark">

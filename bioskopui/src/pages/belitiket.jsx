@@ -66,6 +66,10 @@ class Belitiket extends Component {
     this.onJamchange();
   };
 
+  clearSeat = () => {
+    this.setState({ pilihan: [] });
+  };
+
   onPilihSeatClick = (row, seat) => {
     var pilihan = this.state.pilihan;
     pilihan.push({ row: row, seat }); //seat:seat bisa juga ditulis begitu
@@ -204,7 +208,7 @@ class Belitiket extends Component {
   beliTiket = () => {
     window.location.reload();
     // this.setState({ redirecthome: true });
-    return <Redirect to={"/"} />
+    return <Redirect to={"/"} />;
   };
 
   render() {
@@ -227,9 +231,14 @@ class Belitiket extends Component {
             {this.state.loading ? null : this.renderbutton()}
             <div>
               {this.state.pilihan.length ? (
-                <button className="btn btn-dark mt-3" onClick={this.onOrderClick}>
-                  Order
-                </button>
+                <div>
+                  <button className="btn btn-dark mt-3 mr-3" onClick={this.onOrderClick}>
+                    Order
+                  </button>
+                  <button onClick={this.clearSeat} className="btn btn-dark mt-3">
+                    Clear Seat
+                  </button>
+                </div>
               ) : null}
             </div>
             {this.state.pilihan.length ? this.renderHarga() : null}
@@ -243,8 +252,13 @@ class Belitiket extends Component {
           </div>
         </div>
       );
+    } else {
+      return (
+        <div>
+          <Redirect to={"/error"} />
+        </div>
+      );
     }
-    return <div>404 not found</div>;
   }
 }
 

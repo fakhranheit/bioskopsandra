@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Axios from "axios";
 import { APIURL } from "../support/ApiUrl";
 import Swal from "sweetalert2";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 class RegisterUser extends Component {
   state = {
@@ -57,8 +59,15 @@ class RegisterUser extends Component {
   };
 
   render() {
+    if (this.props.role == "admin" || this.props.role == "user") {
+      return (
+        <div>
+          <Redirect to={"/"} />
+        </div>
+      );
+    }
     return (
-      <div style={{height:'90vh'}}>
+      <div style={{ height: "90vh" }}>
         <div className="container borderregis" style={{ width: "20%" }}>
           <h1>Registrasi</h1>
 
@@ -85,4 +94,10 @@ class RegisterUser extends Component {
   }
 }
 
-export default RegisterUser;
+const MapstateToprops = state => {
+  return {
+    role: state.Auth.role
+  };
+};
+
+export default connect(MapstateToprops)(RegisterUser);

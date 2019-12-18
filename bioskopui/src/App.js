@@ -16,7 +16,9 @@ import { connect } from "react-redux";
 import { LoginSuccessAction, NotifCart } from "./redux/actions";
 import Cart from "./pages/cart";
 import Gantipass from "./pages/gantipassword";
-import manageStudio from './pages/manageStudio'
+import manageStudio from "./pages/manageStudio";
+import Gakketemu from "./pages/gakketemu";
+import History from './pages/history'
 
 class App extends Component {
   state = {
@@ -75,8 +77,10 @@ class App extends Component {
           <Route path={"/login"} exact component={Login} />
           <Route path={"/RegisterUser"} exact component={RegisterUser} />
           <Route path={"/cart"} component={Cart} exact />
-          <Route path="/gantipassword" component={Gantipass} exact/>
-          <Route path="/manageStudio" component={manageStudio} exact/>
+          <Route path="/gantipassword" component={Gantipass} exact />
+          <Route path="/manageStudio" component={manageStudio} exact />
+          <Route path="/error" component={Gakketemu} />
+          <Route path="/history" component={History} />
         </Switch>
       </div>
     );
